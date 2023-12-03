@@ -29,3 +29,7 @@ Second Installation - Migrate & Seeding
 Third Installation
 - Run ```php artisan serve --port 8989```
 - Access on your browser [http://127.0.0.1:8989](http://127.0.0.1:8989)
+
+### API Documentation
+- Access on your browser [http://127.0.0.1:8989/api/documentation](http://127.0.0.1:8989/api/documentation)
+
