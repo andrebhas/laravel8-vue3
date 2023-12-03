@@ -1,0 +1,511 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Dokumentasi API",
+        "description": "ABC ERP",
+        "contact": {
+            "email": "andre.bhas@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8989/api/v1",
+            "description": "Dokumentasi API - ABC ERP"
+        }
+    ],
+    "paths": {
+        "/company-list": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Company List",
+                "description": "Get company list",
+                "operationId": "CompanyList",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "status_code": 200,
+                                    "message": "Success",
+                                    "data": {
+                                        "1": "1700 - ABC",
+                                        "2": "1800 - XYZ"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/department-list": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Department List",
+                "description": "Get department list",
+                "operationId": "DetpartmentList",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "status_code": 200,
+                                    "message": "Success",
+                                    "data": {
+                                        "1": "Agency",
+                                        "2": "BOC"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employees": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Employee Datatable",
+                "description": "Get employee datatable",
+                "operationId": "EmployeeDatatable",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "status_code": 200,
+                                    "message": "Success",
+                                    "data": [
+                                        {
+                                            "nama": "1",
+                                            "nama_kategori": "Pendidikan"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Store new Employee",
+                "description": "Returns employee data",
+                "operationId": "storeEmployee",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreEmployeeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MstEmployee"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The given data was invalid.",
+                                    "errors": {
+                                        "company_id": [
+                                            "The selected company id is invalid."
+                                        ],
+                                        "department_id": [
+                                            "The department id field is required."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/employees/{id}": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Get Employee information",
+                "description": "Returns employee data",
+                "operationId": "showEmployee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MstEmployee"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Update existing employee",
+                "description": "Returns updated employee data",
+                "operationId": "EmployeeUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Project id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateEmployeeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MstEmployee"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/employees/summary": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Employee Summary",
+                "description": "Get employee summary",
+                "operationId": "EmployeeSummary",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "status_code": 200,
+                                    "message": "Success",
+                                    "data": [
+                                        {
+                                            "nama": "1",
+                                            "nama_kategori": "Pendidikan"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StoreEmployeeRequest": {
+                "title": "Store Employee request",
+                "description": "Store Employee request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "company_id": {
+                        "title": "companyId",
+                        "description": "Company's id of the new employee",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "department_id": {
+                        "title": "departmentId",
+                        "description": "Department's id of the new employee",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the new employee",
+                        "type": "string",
+                        "example": "A nice project"
+                    },
+                    "nik": {
+                        "title": "nik",
+                        "description": "NIK of the new employee",
+                        "type": "string",
+                        "example": "A nice project"
+                    },
+                    "status": {
+                        "title": "status",
+                        "description": "Staus of the new employee",
+                        "type": "string",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "join_date": {
+                        "title": "Join date",
+                        "description": "Join Date of the new employee",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-11-11"
+                    },
+                    "dob": {
+                        "title": "Date of Birth",
+                        "description": "Date of Birth of the new employee",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-11-11"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateEmployeeRequest": {
+                "title": "Update Employee request",
+                "description": "Update Employee request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "company_id": {
+                        "title": "companyId",
+                        "description": "Company's id of the new employee",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "department_id": {
+                        "title": "departmentId",
+                        "description": "Department's id of the new employee",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the new employee",
+                        "type": "string",
+                        "example": "A nice project"
+                    },
+                    "nik": {
+                        "title": "nik",
+                        "description": "NIK of the new employee",
+                        "type": "string",
+                        "example": "A nice project"
+                    },
+                    "status": {
+                        "title": "status",
+                        "description": "Staus of the new employee",
+                        "type": "string",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "join_date": {
+                        "title": "Join date",
+                        "description": "Join Date of the new employee",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-11-11"
+                    },
+                    "dob": {
+                        "title": "Date of Birth",
+                        "description": "Date of Birth of the new employee",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-11-11"
+                    }
+                },
+                "type": "object"
+            },
+            "MstEmployee": {
+                "title": "Employee",
+                "description": "Employee model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "company_id": {
+                        "title": "Comnpany",
+                        "description": "Company ID of the new employee",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "company": {
+                        "title": "Company",
+                        "description": "Company of the author's user model"
+                    },
+                    "department_id": {
+                        "title": "Department ID",
+                        "description": "Department ID of the new employee",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "department": {
+                        "title": "Department",
+                        "description": "Department of the author's user model"
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new employee",
+                        "type": "string",
+                        "example": "R. Satrio Adi Pamungkas"
+                    },
+                    "nik": {
+                        "title": "NIK",
+                        "description": "NIK of the new employee",
+                        "type": "string",
+                        "example": "201200330"
+                    },
+                    "status": {
+                        "title": "Status",
+                        "description": "Status of the new employee",
+                        "type": "integer",
+                        "example": "Active"
+                    },
+                    "join_date": {
+                        "title": "Join date",
+                        "description": "Join Date of the new employee",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-11-11"
+                    },
+                    "dob": {
+                        "title": "Date of Birth",
+                        "description": "Date of Birth of the new employee",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-11-11"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "deleted_at": {
+                        "title": "Deleted at",
+                        "description": "Deleted at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Employee"
+                }
+            },
+            "EmployeeResource": {
+                "title": "EmployeeResource",
+                "description": "Employee resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "EmployeeResource"
+                }
+            }
+        }
+    }
+}
